@@ -32,7 +32,7 @@ export default function Login(props) {
         if (retrievedObject) {
             if(event.usuario === retrievedObject.usuario && event.password === retrievedObject.password){
                 dispatch(logInSession({}));
-                let path = `MensajesPage`; 
+                let path = `store`; 
                 history.push(path);
             }
         }
@@ -57,7 +57,7 @@ export default function Login(props) {
                         <Field className="elemento" placeholder="Introduce tu password..." name="password" value={values.password} />
                         {touched.password && errors.password && <div className="errors">{errors.password}</div>}
                     </div>
-                    <button className="nuevo">Iniciar Sesión</button>
+                    <button type="submit" className="nuevo">Iniciar Sesión</button>
                     <button type="button" className="iniciarSesion" onClick={createUser}>¿No estás registrado? Regístrate aquí</button>
                 </Form>
             )}

@@ -37,11 +37,11 @@ export default function Login(props) {
                 let localStorageUser = { usuario: event.usuario, password: event.password }
                 localStorage.setItem("usuario_"+event.usuario, JSON.stringify(localStorageUser));
                 dispatch(logInSession({}));
-                let path = `MensajesPage`; 
+                let path = `store`; 
                 history.push(path);
             }
+            event.preventDefault();
         }
-        event.preventDefault();
     }
 
     return (
@@ -63,7 +63,7 @@ export default function Login(props) {
                         <Field className="elemento" placeholder="Introduce tu password..." name="password" value={values.password} />
                         {touched.password && errors.password && <div className="errors">{errors.password}</div>}
                     </div>
-                    <button onSubmit className="nuevo">Crear Usuario</button>
+                    <button type="submit" className="nuevo">Crear usuario</button>
                     <button className="iniciarSesion" onClick={createUser}>¿Ya estás registrado? Entra aquí</button>
                 </Form>
             )}

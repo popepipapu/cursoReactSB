@@ -1,0 +1,20 @@
+.product-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.product-element{
+    width: 200px;
+    height: 300px;
+    display: inline;
+    margin: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.img-container{
+    height: 200px;
+    text-align: center;
+}
+.img-container img {
+    max-width: 200px;
+    max-height: 150px;
+}

@@ -15,8 +15,9 @@ export default function Nav() {
   }
   return (
     <div className="Nav">
-        <Link className="Nav-link" to='/MensajesPage'>Mensajes</Link>
-        <Link className="Nav-link" to='/'>Login</Link>
+        <Link className="Nav-link" to='/About'>Sobre Nosotros</Link>
+        <Link className="Nav-link" to='/Store'>Tienda</Link>
+        {!session && <Link className="Nav-link" to='/'>Login</Link>}
         {session && <button onClick={cerrar}>Cerrar sesión</button>}
     </div>
   );

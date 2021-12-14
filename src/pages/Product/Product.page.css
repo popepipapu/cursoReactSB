@@ -1,0 +1,11 @@
+.Product {
+    text-align: center;
+    display: inline;
+}
+.Product-title{
+    font-weight: bold;
+}
+
+.Product-image img {
+    max-width: 600px;
+}
