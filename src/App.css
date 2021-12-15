@@ -42,7 +42,19 @@
   text-align: left;
   margin: 0 20px;
 }
+.container{
+  min-height: calc(100vh - 112px);
+}
 
 h1 {
   text-align: center;
+}
+.nightBackground{
+  background-color: #282c34;
+}
+.nightBackground h1, .nightBackground h3, .nightBackground h4, .nightBackground label{
+  color: #fff;
+}
+.dayBackground{
+  background-color: #fff;
 }

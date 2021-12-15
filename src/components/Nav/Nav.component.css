@@ -17,3 +17,6 @@
     color: blue;
     text-decoration: underline;
 }
+button.btn.btn-sm.nightMode {
+    color: #fff;
+}

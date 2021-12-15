@@ -1,7 +1,7 @@
 import './Signin.page.css'
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { logInSession } from '../../redux/actions/session.js';
+import { useContext } from 'react';
+import SessionContext from '../../redux/reducers/sessionReducer';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 // import { Redirect } from 'react-router';
@@ -18,7 +18,7 @@ export default function Login(props) {
             .min(6, 'El pass debe tener al menos 6 carácteres.'),
 
     });
-    const dispatch = useDispatch();
+    const { setSession } = useContext(SessionContext);
     const history = useHistory();
     let initialValues = { usuario: '', password: '' };
 
@@ -36,7 +36,7 @@ export default function Login(props) {
             if (event.usuario && event.password) {
                 let localStorageUser = { usuario: event.usuario, password: event.password }
                 localStorage.setItem("usuario_"+event.usuario, JSON.stringify(localStorageUser));
-                dispatch(logInSession({}));
+                setSession(true);
                 let path = `store`; 
                 history.push(path);
             }
@@ -45,29 +45,39 @@ export default function Login(props) {
     }
 
     return (
-        <div>
-        {userExist && <div>Este usuario está ocupado, prueba a entrar</div>}
-        <Formik
-            validationSchema={validaciones}
-            initialValues={initialValues}
-            onSubmit={signIn}>
-            {({ values, touched, errors }) => (
-                <Form className="formulario-logIn">
-                    <strong>Crea tu usuario</strong>
+        <div className="container">
+            <div className="row col-sm-6 offset-sm-3">
+                <div className="form-box">
+                    {userExist && <div>Este usuario está ocupado, prueba a entrar</div>}
+                    <Formik
+                        validationSchema={validaciones}
+                        initialValues={initialValues}
+                        onSubmit={signIn}>
+                        {({ values, touched, errors }) => (
+                            <Form className="formulario-logIn">
+                            <h4>Formulario <span>Registro</span></h4>
+                            <div className="form-group">
+                            <label for="usuario">Usuario</label>
+                            {touched.usuario && errors.usuario && <div id="nameError" className="sr-only" role="alert">{errors.usuario}</div>}
+                                <div className={[touched.usuario && errors.usuario && "errorInput", "input-group"].join(' ')}>
+                                    <Field className="form-control" placeholder="Introduce tu email..." name="usuario" value={values.usuario} />
+                                </div>
+                            </div>
 
-                    <div className={[touched.usuario && errors.usuario && "errorInput", "inputContainer"].join(' ')}>
-                        <Field className="elemento" placeholder="Introduce tu email..." name="usuario" value={values.usuario} />
-                        {touched.usuario && errors.usuario && <div className="errors">{errors.usuario}</div>}
-                    </div>
-                    <div className={[touched.password && errors.password && "errorInput", "inputContainer"].join(' ')}>
-                        <Field className="elemento" placeholder="Introduce tu password..." name="password" value={values.password} />
-                        {touched.password && errors.password && <div className="errors">{errors.password}</div>}
-                    </div>
-                    <button type="submit" className="nuevo">Crear usuario</button>
-                    <button className="iniciarSesion" onClick={createUser}>¿Ya estás registrado? Entra aquí</button>
-                </Form>
-            )}
-        </Formik>
+                            <div className="form-group">
+                            <label for="password">Password</label>
+                            {touched.password && errors.password && <div id="nameError" className="sr-only" role="alert">{errors.password}</div>}
+                                <div className={[touched.password && errors.password && "errorInput", "input-group"].join(' ')}>
+                                    <Field className="form-control" placeholder="Introduce tu password..." name="password" value={values.password} />
+                                </div>
+                            </div>
+                                <button type="submit" className="btn btn-success">Crear usuario</button>
+                                <button className="btn btn-primary" onClick={createUser}>¿Ya estás registrado? Entra aquí</button>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
         </div>
     );
 }

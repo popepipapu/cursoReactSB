@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
-import logs from "./sessionReducer";
-import mensajes from "./mensajesReducer";
+import { mensajes } from './mensajesReducer';
+import { styleChange } from './styleChangeReducer';
+import { default as productos } from './productosReducer';
 
-export const rootReducer = combineReducers (
-    {
-        mensajesState: mensajes,
-        logsState: logs
-    }
-)
+const  reducers = combineReducers({
+    mensajes,
+    styleChange,
+    productos
+});
+export default reducers;

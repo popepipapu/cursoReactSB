@@ -1,16 +1,14 @@
-import { createStore, combineReducers } from 'redux';
-import { mensajes } from './reducers/mensajesReducer';
-import { session } from './reducers/sessionReducer';
-import { productos } from './reducers/productosReducer';
-let reducers = combineReducers({
-    mensajes: mensajes,
-    session: session,
-    productos: productos
-});
+import { applyMiddleware, compose, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer from './reducers/rootReducer';
+import productSaga from './sagas/index';
 
-let store = createStore(
-    reducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const sagaMiddleware = createSagaMiddleware()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    rootReducer, 
+    composeEnhancers(applyMiddleware(sagaMiddleware))
 );
+sagaMiddleware.run(productSaga);
 
 export default store;

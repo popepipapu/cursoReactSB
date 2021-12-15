@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import SessionContext from '../../redux/reducers/sessionReducer';
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-    const session = useSelector(state => state).session;
+    const { session } = useContext(SessionContext);
     return (
         <Route
             {...rest}
